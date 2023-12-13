@@ -1,0 +1,57 @@
+.landing-page-header {
+    background-color: #26547c;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 45px 60px;
+  }
+  @media (max-width: 991px) {
+    .landing-page-header {
+      max-width: 100%;
+      padding: 0 20px;
+    }
+  }
+  .div-2 {
+    display: flex;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 1075px;
+    flex-direction: column;
+  }
+  @media (max-width: 991px) {
+    .div-2 {
+      max-width: 100%;
+    }
+  }
+
+  .landing-page-header-text {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 600;
+    font-family: 'Inter, sans-serif';
+    text-align: left; /* Add this line to align text to the left */
+  }
+  @media (max-width: 991px) {
+    .landing-page-header-text {
+      font-size: 40px;
+      max-width: 100%;
+    }
+  }
+
+  .div-4 {
+    color: #fff;
+    margin-top: 18px;
+    font: 500 25px Inter, sans-serif;
+    text-align: left;
+  }
+  @media (max-width: 991px) {
+    .div-4 {
+      max-width: 100%;
+    }
+  }
+  
+.span {
+    text-align: left;
+}
