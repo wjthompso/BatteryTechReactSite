@@ -1,17 +1,19 @@
 
 .battery-container {
-    width: 220px;
-    height: 400px;
+    /* width: 220px;
+    height: 400px; */
     display: flex;
     flex-direction: column;
     padding: 2%;
+    --tip-border-radius: calc(0.02*var(--battery-width));
+    --section-border-radius: calc(0.11*var(--battery-width));
 }
 
 .battery-section-tip {
     width: 25%;
     height: 3%;
     align-self: center;
-    border-radius: 5px 5px 0 0;
+    border-radius: var(--tip-border-radius) var(--tip-border-radius) 0 0;
 }
 
 .battery-main-body {
@@ -24,17 +26,20 @@
 }
 
 .section-top {
-    border-radius: 25px 25px 0 0;
+    border-radius: var(--section-border-radius) var(--section-border-radius) 0 0;
 }
 
 .section-bottom {
-    border-radius: 0 0 25px 25px;
+    border-radius: 0 0 var(--section-border-radius) var(--section-border-radius);
 }
   
 .battery-section {
     flex: 1;
     background-clip: padding-box;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
   
 .blue {

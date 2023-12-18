@@ -4,47 +4,41 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 46px;
-    height: 46px;
-    border-radius: 6.25px;
-    border: 1px solid black;
+    /* width: 46px; These get passed in
+    height: 46px; */
+    border-radius: calc(0.135*100%);
+    border: calc(0.02 * var(--container-width)) solid black;
     background-color: #E3E3E3;
 }
 
 h3.atomic-number {
-    margin: 0;
-    padding: 0;
     position: absolute;
-    left: 0.2rem;
-    top: 0.2rem;
-    font-size: 7px;
-    /* height: 1.4rem; */
-    line-height: 6px;
+    left: 5%;
+    top: 8%;
+    font-size: calc(0.15* var(--container-width));
+    line-height: calc(0.15* var(--container-width));
     font-weight: 700;
-    text-align: center;
-    /* color: #f7e5be; */
-    /* margin-left: 1rem; */
 }
 
 h1.element-symbol {
-    padding-top: 0.5rem;
-    padding-bottom: 0rem;
-    margin: 0rem;
-    font-size: 16px;
+    padding-top: calc(0.17 * var(--container-width));
+    padding-bottom: 0;
     font-weight: 500;
-    line-height: 16px;
+    font-size: calc(0.35 * var(--container-width));
+    line-height: calc(0.35 * var(--container-width));
 }
 
 h3.element-name {
-    margin: 0;
-    padding: 0;
-    font-size: 7px;
-    line-height: 6px;
+    font-size: calc(0.15 * var(--container-width));
+    line-height: calc(0.15 * var(--container-width));
+    /* font-size: 7px;
+    line-height: 6px; */
 }
 
 h3.atomic-weight {
-    padding-top: 1px;
-    font-size: 5px;
+    padding-top: calc(0.02 * var(--container-width));
+    font-size: calc(0.12 * var(--container-width));
+    /* font-size: 5px; */
 }
 
 
