@@ -1,6 +1,8 @@
 .element-graphic-container {
-    position: relative;
+    position: absolute;
     display: flex;
+    /* left: calc(100% / 2 - var(--container-width));
+    top: calc(100% / 2 - var(--container-height)); */
     flex-direction: column;
     justify-content: center;
     align-items: center;

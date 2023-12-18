@@ -4,9 +4,10 @@
     height: 400px; */
     display: flex;
     flex-direction: column;
-    padding: 2%;
+    margin: 10px;
     --tip-border-radius: calc(0.02*var(--battery-width));
     --section-border-radius: calc(0.11*var(--battery-width));
+    box-sizing: border-box;
 }
 
 .battery-section-tip {
@@ -38,6 +39,7 @@
     background-clip: padding-box;
     box-sizing: border-box;
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
 }

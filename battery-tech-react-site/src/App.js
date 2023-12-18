@@ -9,24 +9,49 @@ import ElementGraphic from './components/cards/battery_card/ElementGraphic';
 
 function App() {
   const batteryElements = {
-    top: {
+    top: [{
       atomicNumber: "13",
       elementSymbol: "Al",
       elementName: "Aluminum",
       atomicWeight: "26.9815",
-    },
-    middle: {
+    }],
+    middle: [{
       atomicNumber: "12",
       elementSymbol: "Mg",
       elementName: "Magnesium",
       atomicWeight: "24.305",
     },
-    bottom: {
+    {
+      atomicNumber: "12",
+      elementSymbol: "Mg",
+      elementName: "Magnesium",
+      atomicWeight: "24.305",
+    },
+    // {
+    //   atomicNumber: "12",
+    //   elementSymbol: "Mg",
+    //   elementName: "Magnesium",
+    //   atomicWeight: "24.305",
+    // },
+    // {
+    //   atomicNumber: "12",
+    //   elementSymbol: "Mg",
+    //   elementName: "Magnesium",
+    //   atomicWeight: "24.305",
+    // },
+    // {
+    //   atomicNumber: "12",
+    //   elementSymbol: "Mg",
+    //   elementName: "Magnesium",
+    //   atomicWeight: "24.305",
+    // },
+  ],
+    bottom: [{
       atomicNumber: "25",
       elementSymbol: "Mn",
       elementName: "Manganese",
       atomicWeight: "54.938",
-    },
+    }],
   };
 
   return (
