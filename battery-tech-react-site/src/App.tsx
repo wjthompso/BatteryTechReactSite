@@ -6,6 +6,7 @@ import React from 'react';
 import LandingPageHeader from './components/front_page/LandingPageHeader';
 import BatteryGraphic, { BatteryElectrochemicalComponents } from './components/cards/battery_card/BatteryGraphic';
 import ElementGraphic from './components/cards/battery_card/ElementGraphic';
+import BatteryCard from './components/cards/battery_card/BatteryCard';
 
 const App: React.FC = () => {
   const batteryElements: BatteryElectrochemicalComponents = {
@@ -21,24 +22,12 @@ const App: React.FC = () => {
       elementName: "Magnesium",
       atomicWeight: "24.305",
     },
-    // {
-    //   atomicNumber: "12",
-    //   elementSymbol: "Mg",
-    //   elementName: "Magnesium",
-    //   atomicWeight: "24.305",
-    // },
-    // {
-    //   atomicNumber: "12",
-    //   elementSymbol: "Mg",
-    //   elementName: "Magnesium",
-    //   atomicWeight: "24.305",
-    // },
-    // {
-    //   atomicNumber: "12",
-    //   elementSymbol: "Mg",
-    //   elementName: "Magnesium",
-    //   atomicWeight: "24.305",
-    // },
+    {
+      atomicNumber: "12",
+      elementSymbol: "Mg",
+      elementName: "Magnesium",
+      atomicWeight: "24.305",
+      },
     {
       atomicNumber: "12",
       elementSymbol: "Mg",
@@ -54,9 +43,15 @@ const App: React.FC = () => {
     }],
   };
 
+  console.log("batteryElements", batteryElements);
+
   return (
     <div className="App">
       <LandingPageHeader />
+      <BatteryCard 
+        size={600}
+        batteryElements={batteryElements}
+      />
       <BatteryGraphic 
         width={220}
         elements={batteryElements}

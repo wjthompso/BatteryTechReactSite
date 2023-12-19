@@ -33,6 +33,7 @@ export type BatteryElectrochemicalComponents = {
 type BatteryGraphicProps = {
   width: number;
   elements: BatteryElectrochemicalComponents;
+  style?: React.CSSProperties;
 }
 
 type TransformStyles = {
@@ -88,7 +89,9 @@ type TransformStyles = {
  * @returns {JSX.Element}
  */
 
-const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements }) => {
+const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements, style }) => {
+  console.log("elements", elements);
+  
   const calculatedChemicalElementSize = width * 0.44;
 
   const enrichElementsWithSizeParameter = (elements: ElementData[]): EnrichedElementData[] => elements.map(
@@ -105,6 +108,7 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements }) => {
     '--battery-width': `${width}px`,
     width: `${width}px`,
     height: `${width * 1.9}px`,
+    ...style,
   };
 
   const getTransformStylesForSpread = (index: number, total: number): TransformStyles => {
