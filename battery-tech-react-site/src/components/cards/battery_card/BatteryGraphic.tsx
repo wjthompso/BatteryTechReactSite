@@ -4,24 +4,31 @@ import './BatteryGraphic.css';
 import ElementGraphic from './ElementGraphic';
 
 // Define the type for individual elements
-interface Element {
+
+type ElementData = {
   atomicNumber: string;
   elementSymbol: string;
   elementName: string;
   atomicWeight: string;
 }
 
-// Define the type for the props
-interface BatteryGraphicProps {
-  width: number;
-  elements: {
-    cathode?: Element[];
-    electrolyte?: Element[];
-    anode?: Element[];
-  };
+type EnrichedElementData = ElementData & {
+  size: number;
 }
 
-interface TransformStyles {
+export type BatteryElectromchemicalComponents = {
+  anode: ElementData[];
+  electrolyte: ElementData[];
+  cathode: ElementData[];
+}
+
+// Define the type for the props
+type BatteryGraphicProps = {
+  width: number;
+  elements: BatteryElectromchemicalComponents;
+}
+
+type TransformStyles = {
   zIndex: number;
   transform: string;
 }
@@ -29,7 +36,7 @@ interface TransformStyles {
 const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements }) => {
   const calculatedChemicalElementSize = width * 0.44;
 
-  const enrichElementsWithSizeParameter = (elements: Element[]): Element[] => elements.map(
+  const enrichElementsWithSizeParameter = (elements: ElementData[]): EnrichedElementData[] => elements.map(
     el => ({ ...el, size: calculatedChemicalElementSize })
   );
 

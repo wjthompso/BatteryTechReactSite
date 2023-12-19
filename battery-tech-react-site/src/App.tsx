@@ -4,22 +4,8 @@ import './App.css';
 import React from 'react';
 // import MyComponent from './MyComponent'; // Adjust the path as necessary
 import LandingPageHeader from './components/front_page/LandingPageHeader';
-import BatteryGraphic from './components/cards/battery_card/BatteryGraphic';
+import BatteryGraphic, { BatteryElectromchemicalComponents } from './components/cards/battery_card/BatteryGraphic';
 import ElementGraphic from './components/cards/battery_card/ElementGraphic';
-
-// Define interfaces for your elements
-interface ElementData {
-  atomicNumber: string;
-  elementSymbol: string;
-  elementName: string;
-  atomicWeight: string;
-}
-
-interface BatteryElectromchemicalComponents {
-  anode: ElementData[];
-  electrolyte: ElementData[];
-  cathode: ElementData[];
-}
 
 const App: React.FC = () => {
   const batteryElements: BatteryElectromchemicalComponents = {
