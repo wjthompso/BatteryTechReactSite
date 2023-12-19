@@ -1,7 +1,16 @@
 import React from 'react';
 import './LandingPageHeader.css'; // Import the CSS file
 
-function LandingPageHeader(props) {
+/**
+ * LandingPageHeader Component
+ *
+ * The `LandingPageHeader` component displays the website name, slogan, and a brief
+ * description of the website's purpose. It serves as the header section for the
+ * landing page of the CellStatus application.
+ *
+ * @returns {JSX.Element} The JSX representation of the landing page header.
+ */
+const LandingPageHeader: React.FC = () => {
   return (
     <div className="landing-page-header">
         <div className="landing-page-header-text">

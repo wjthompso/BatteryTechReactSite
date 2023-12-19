@@ -4,11 +4,11 @@ import './App.css';
 import React from 'react';
 // import MyComponent from './MyComponent'; // Adjust the path as necessary
 import LandingPageHeader from './components/front_page/LandingPageHeader';
-import BatteryGraphic, { BatteryElectromchemicalComponents } from './components/cards/battery_card/BatteryGraphic';
+import BatteryGraphic, { BatteryElectrochemicalComponents } from './components/cards/battery_card/BatteryGraphic';
 import ElementGraphic from './components/cards/battery_card/ElementGraphic';
 
 const App: React.FC = () => {
-  const batteryElements: BatteryElectromchemicalComponents = {
+  const batteryElements: BatteryElectrochemicalComponents = {
     cathode: [{
       atomicNumber: "13",
       elementSymbol: "Al",

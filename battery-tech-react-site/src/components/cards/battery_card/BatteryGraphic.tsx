@@ -16,7 +16,14 @@ type EnrichedElementData = ElementData & {
   size: number;
 }
 
-export type BatteryElectromchemicalComponents = {
+type EnrichedBatteryElectrochemicalComponents = {
+  anode: EnrichedElementData[];
+  electrolyte: EnrichedElementData[];
+  cathode: EnrichedElementData[];
+
+}
+
+export type BatteryElectrochemicalComponents = {
   anode: ElementData[];
   electrolyte: ElementData[];
   cathode: ElementData[];
@@ -25,13 +32,61 @@ export type BatteryElectromchemicalComponents = {
 // Define the type for the props
 type BatteryGraphicProps = {
   width: number;
-  elements: BatteryElectromchemicalComponents;
+  elements: BatteryElectrochemicalComponents;
 }
 
 type TransformStyles = {
   zIndex: number;
   transform: string;
 }
+/**
+ * BatteryGraphic.tsx
+ *
+ * Description:
+ * -----------
+ * This component is a battery graphic that can be used to display the battery's
+ * electromchemical components, i.e., the anode, electrolyte, and cathode. The
+ * component takes in a width parameter and a BatteryElectrochemicalComponents
+ * object. The width parameter is used to calculate the size of the elements
+ * that are displayed in the battery graphic.
+ * 
+ * Props:
+ * ------
+ * 
+ * @param {{BatteryGraphicProps}} props - The component's props.
+ * @param {{number}} props.width - The width of the battery graphic.
+ * @param {{BatteryElectrochemicalComponents}} props.elements - An object containing the
+ *   electrochemical components of the battery: anode, electrolyte, and cathode.
+ * 
+ * Example Usage:
+ * --------------
+ * @example
+ * <BatteryGraphic
+ *   width={220}
+ *   elements={{
+ *      anode: [{
+ *        atomicNumber: "25",
+ *        elementSymbol: "Mn",
+ *        elementName: "Manganese",
+ *         atomicWeight: "54.938",
+ *     }],
+ *      electrolyte: [{
+ *        atomicNumber: "12",
+ *        elementSymbol: "Mg",
+ *        elementName: "Magnesium",
+ *        atomicWeight: "24.305",
+ *     }],
+ *      cathode: [{
+ *        atomicNumber: "13",
+ *        elementSymbol: "Al",
+ *        elementName: "Aluminum",
+ *        atomicWeight: "26.9815",
+ * }],
+ * }}
+ * />
+ * 
+ * @returns {JSX.Element}
+ */
 
 const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements }) => {
   const calculatedChemicalElementSize = width * 0.44;
@@ -40,7 +95,7 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements }) => {
     el => ({ ...el, size: calculatedChemicalElementSize })
   );
 
-  const enrichedElements = {
+  const enrichedElements: EnrichedBatteryElectrochemicalComponents = {
     cathode: elements.cathode ? enrichElementsWithSizeParameter(elements.cathode) : [],
     electrolyte: elements.electrolyte ? enrichElementsWithSizeParameter(elements.electrolyte) : [],
     anode: elements.anode ? enrichElementsWithSizeParameter(elements.anode) : [],
