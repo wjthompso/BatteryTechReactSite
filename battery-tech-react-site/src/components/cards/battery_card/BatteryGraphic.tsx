@@ -3,13 +3,34 @@ import React from 'react';
 import './BatteryGraphic.css';
 import ElementGraphic from './ElementGraphic';
 
-const BatteryGraphic = (props) => {
-  let { width, elements } = props; // Destructure elements prop for individual element data
+// Define the type for individual elements
+interface Element {
+  atomicNumber: string;
+  elementSymbol: string;
+  elementName: string;
+  atomicWeight: string;
+}
 
+// Define the type for the props
+interface BatteryGraphicProps {
+  width: number;
+  elements: {
+    cathode?: Element[];
+    electrolyte?: Element[];
+    anode?: Element[];
+  };
+}
+
+interface TransformStyles {
+  zIndex: number;
+  transform: string;
+}
+
+const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements }) => {
   const calculatedChemicalElementSize = width * 0.44;
 
-  const enrichElementsWithSizeParameter = (elements) => elements.map(
-    el => ({ ...el, size: calculatedChemicalElementSize }) // Spread the element data and add the calculated size
+  const enrichElementsWithSizeParameter = (elements: Element[]): Element[] => elements.map(
+    el => ({ ...el, size: calculatedChemicalElementSize })
   );
 
   const enrichedElements = {
@@ -18,17 +39,13 @@ const BatteryGraphic = (props) => {
     anode: elements.anode ? enrichElementsWithSizeParameter(elements.anode) : [],
   };
 
-  console.log("enrichedElements.cathode:", enrichedElements.cathode);
-  console.log("enrichedElements.electrolyte:", enrichedElements.electrolyte);
-  console.log("enrichedElements.anode:", enrichedElements.anode);
-
   const batteryStyle = {
     '--battery-width': `${width}px`,
     width: `${width}px`,
     height: `${width * 1.9}px`,
   };
 
-  const getTransformStylesForSpread = (index, total) => {
+  const getTransformStylesForSpread = (index: number, total: number): TransformStyles => {
     index += 1; // To start from 1 instead of 0
     const middleIndex = Math.floor(total / 2);
     const isEven = total % 2 === 0;
@@ -68,11 +85,7 @@ const BatteryGraphic = (props) => {
     if (total === 1) {
       shiftPercentage = 0;
     };
-
-    console.log("index:", index, "total", total, "shiftPercentage:", shiftPercentage, {
-      zIndex: index, // To stack elements correctly
-      transform: `translateX(${shiftPercentage}%)`,
-    });
+    
 
     return {
       zIndex: index, // To stack elements correctly
