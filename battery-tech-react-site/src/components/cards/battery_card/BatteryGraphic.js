@@ -13,10 +13,14 @@ const BatteryGraphic = (props) => {
   );
 
   const enrichedElements = {
-    top: elements.top ? enrichElementsWithSizeParameter(elements.top) : [],
-    middle: elements.middle ? enrichElementsWithSizeParameter(elements.middle) : [],
-    bottom: elements.bottom ? enrichElementsWithSizeParameter(elements.bottom) : [],
+    cathode: elements.cathode ? enrichElementsWithSizeParameter(elements.cathode) : [],
+    electrolyte: elements.electrolyte ? enrichElementsWithSizeParameter(elements.electrolyte) : [],
+    anode: elements.anode ? enrichElementsWithSizeParameter(elements.anode) : [],
   };
+
+  console.log("enrichedElements.cathode:", enrichedElements.cathode);
+  console.log("enrichedElements.electrolyte:", enrichedElements.electrolyte);
+  console.log("enrichedElements.anode:", enrichedElements.anode);
 
   const batteryStyle = {
     '--battery-width': `${width}px`,
@@ -81,29 +85,29 @@ const BatteryGraphic = (props) => {
         <div className="battery-section-tip blue"></div>
         <div className="battery-main-body">
             <div className="battery-section section-top blue">
-              {enrichedElements.top.map((element, index) => (
+              {enrichedElements.cathode.map((element, index) => (
                   <ElementGraphic 
                     key={index} 
                     {...element} 
-                    style={getTransformStylesForSpread(index, enrichedElements.top.length)}
+                    style={getTransformStylesForSpread(index, enrichedElements.cathode.length)}
                     />
                 ))}
             </div>
             <div className="battery-section cream">
-              {enrichedElements.middle.map((element, index) => (
+              {enrichedElements.electrolyte.map((element, index) => (
                   <ElementGraphic 
                     key={index} 
                     {...element} 
-                    style={getTransformStylesForSpread(index, enrichedElements.middle.length)}  
+                    style={getTransformStylesForSpread(index, enrichedElements.electrolyte.length)}  
                   />
                 ))}
             </div>
             <div className="battery-section section-bottom coral">    
-              {enrichedElements.bottom.map((element, index) => (
+              {enrichedElements.anode.map((element, index) => (
                   <ElementGraphic 
                   key={index} 
                   {...element} 
-                  style={getTransformStylesForSpread(index, enrichedElements.bottom.length)}
+                  style={getTransformStylesForSpread(index, enrichedElements.anode.length)}
                   />
                 ))}        
             </div>
