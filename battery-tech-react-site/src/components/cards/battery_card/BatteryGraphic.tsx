@@ -2,6 +2,7 @@
 import React from 'react';
 import './BatteryGraphic.css';
 import ElementGraphic from './ElementGraphic';
+import BatteryCallout from './BatteryCallout';
 
 // Define the type for individual elements
 
@@ -159,6 +160,10 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements, style 
     };
   };
 
+  const calloutHeight: number = width * 0.20;
+
+  console.log("calloutHeight", calloutHeight);
+
   return (
     <div className="battery-container" style={batteryStyle}>
         <div className="battery-section-tip blue"></div>
@@ -170,7 +175,12 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements, style 
                     {...element} 
                     style={getTransformStylesForSpread(index, enrichedElements.cathode.length)}
                     />
-                ))}
+              ))}
+              <BatteryCallout
+                height={calloutHeight}
+                elements="Al"
+                electrochemicalCategory="Cathode"
+              />
             </div>
             <div className="battery-section cream">
               {enrichedElements.electrolyte.map((element, index) => (
@@ -179,7 +189,12 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements, style 
                     {...element} 
                     style={getTransformStylesForSpread(index, enrichedElements.electrolyte.length)}  
                   />
-                ))}
+              ))}
+              <BatteryCallout
+                height={calloutHeight}
+                elements="Al-Mg-Mn"
+                electrochemicalCategory="Electrolyte"
+              />
             </div>
             <div className="battery-section section-bottom coral">    
               {enrichedElements.anode.map((element, index) => (
@@ -188,7 +203,12 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({ width, elements, style 
                   {...element} 
                   style={getTransformStylesForSpread(index, enrichedElements.anode.length)}
                   />
-                ))}        
+              ))}
+              <BatteryCallout
+                height={calloutHeight}
+                elements="Mn"
+                electrochemicalCategory="Anode"
+              />
             </div>
         </div>
     </div>

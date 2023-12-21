@@ -1,0 +1,54 @@
+.callout-positioning-container {
+    /* display: block; */
+    display: flex;
+    position: absolute;
+    min-height: calc(var(--callout-height));
+    max-height: calc(var(--callout-height));
+    left: 90%;
+    text-align: left;
+    z-index: 6;
+    text-wrap: nowrap;
+    /* border: 1px solid black; */
+    align-items: center;
+}
+
+.callout {
+    display: inline-flex;
+    /* flex-shrink: 1; */
+}
+
+div.callout-dot {
+    border-radius: 50%;
+    /* height: calc(0.36*var(--callout-height));
+    width: calc(0.36*var(--callout-height)); */
+    min-height: calc(0.3*var(--callout-height));
+    max-height: calc(0.3*var(--callout-height));
+    min-width: calc(0.3*var(--callout-height));
+    max-width: calc(0.3*var(--callout-height));
+    background-color: gray;
+    align-self: center;
+    box-sizing: border-box;
+}
+
+div.callout-line {
+    min-width: calc(1*var(--callout-height));
+    max-width: calc(1*var(--callout-height));
+    min-height: calc(0.1*var(--callout-height));
+    max-height: calc(0.1*var(--callout-height));
+    align-self: center;
+    background: gray;
+    transform: translateX(calc(-0.2 * var(--callout-height)));
+    border-radius: 0% var(--callout-height) var(--callout-height) 0%;
+}
+
+div.callout-label {
+    font-size: calc(0.7*var(--callout-height));
+    line-height: var(--callout-height);
+    font-weight: 500;
+    margin-left: calc(0.5*var(--callout-height));
+    align-self: center;
+}
+
+span.elements {
+    font-weight: 700;
+}

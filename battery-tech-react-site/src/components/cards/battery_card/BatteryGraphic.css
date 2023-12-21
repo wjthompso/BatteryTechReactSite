@@ -8,6 +8,7 @@
     --tip-border-radius: calc(0.02*var(--battery-width));
     --section-border-radius: calc(0.11*var(--battery-width));
     box-sizing: border-box;
+    overflow: visible;
 }
 
 .battery-section-tip {
@@ -24,6 +25,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    overflow: visible;
 }
 
 .section-top {
@@ -42,6 +44,7 @@
     position: relative;
     justify-content: center;
     align-items: center;
+    overflow: visible;
 }
   
 .blue {

@@ -7,6 +7,7 @@ import LandingPageHeader from './components/front_page/LandingPageHeader';
 import BatteryGraphic, { BatteryElectrochemicalComponents } from './components/cards/battery_card/BatteryGraphic';
 import ElementGraphic from './components/cards/battery_card/ElementGraphic';
 import BatteryCard from './components/cards/battery_card/BatteryCard';
+import BatteryCallout from './components/cards/battery_card/BatteryCallout';
 
 const App: React.FC = () => {
   const batteryElements: BatteryElectrochemicalComponents = {
@@ -56,7 +57,12 @@ const App: React.FC = () => {
         width={220}
         elements={batteryElements}
       />
-      <div className="element-graphic-container-container" 
+      <BatteryCallout
+        height={900}
+        elements="Al-Mg-Mn"
+        electrochemicalCategory="Cathode"
+      />
+      {/* <div className="element-graphic-container-container" 
       style={{marginLeft: "1rem"}}>
         <ElementGraphic 
           size={46}
@@ -79,7 +85,7 @@ const App: React.FC = () => {
           elementName="Manganese" 
           atomicWeight="26.981" 
         />
-      </div>
+      </div> */}
     </div>
 
   );

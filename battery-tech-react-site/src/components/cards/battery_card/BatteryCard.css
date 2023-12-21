@@ -1,9 +1,144 @@
 .battery-card {
     margin: 10px;
     display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    border-radius: calc(0.025 * var(--battery-card-container-height));
+    background: white;
+}
+
+.battery-title-graphic-ranking-positioning-box {
+    position: relative;
+    width: calc(0.5*var(--battery-card-container-height));
+    height: calc(0.43*var(--battery-card-container-height));
+    align-self: flex-start;
+    /* border: 1px solid black; */
+}
+
+.battery-graphic-positioning-box {
+    /* display: flex; */
+    position: absolute;
+    left: 2%;
+    top: 17%;
+    /* align-self: center; */
+}
+
+.battery-card-title {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    font-size: calc(0.03 * var(--battery-card-container-height));
+    font-weight: 700;
+    margin: 10px;
+    justify-self: flex-start;
+    align-self: flex-start;
+}
+
+/* fill="#000000" width="800px" height="800px"8
+*/
+
+.badge-container {
+    position: absolute;
+    right: 0%;
+    top: 2%;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: calc(0.1 * var(--battery-card-container-width));
-    background-color: rgb(200, 200, 200);
+    width: calc(0.10 * var(--battery-card-container-height));
+    height: calc(0.10 * var(--battery-card-container-height));
 }
+
+.badge-icon-svg {
+    position: absolute;
+    fill: #808080;
+    width: 100%;
+    height: 100%;
+}
+
+h3.badge-ranking-number {
+    position: absolute;
+    top: 20%;
+    font-size: calc(0.022 * var(--battery-card-container-height));
+    font-weight: 700;
+    color: #808080;
+    margin: 0;
+    padding: 0;
+}
+
+div.metrics-grid {
+    flex: 0;
+    /* position: absolute; */
+    justify-self: center;
+    display: grid;
+    /* top: 45%;
+    left: 5%; */
+    width: 90%;
+    height: calc(0.48 * var(--battery-card-container-height));
+    grid-template-rows: 1fr 9fr;
+    /* grid-template-columns: 75% 25%; */
+    grid-template-columns: 82% 18%;
+}
+
+div.metrics-title {
+    grid-column: 1/-1;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+div.metrics-title h3 {
+    font-size: calc(0.03 * var(--battery-card-container-height));
+    font-weight: 700;
+}
+
+div.metrics-labels-column,
+div.metrics-values-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+div.metrics-values-column {
+    align-items: flex-start;
+}
+
+h2.metrics-label,
+h2.metrics-value {
+    /* min-width: 100%; */
+    max-width: 100%;
+    --line-spacing: calc(0.0025 * var(--battery-card-container-height));
+    font-size: calc(0.02 * var(--battery-card-container-height));
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    line-height: calc(0.025 * var(--battery-card-container-height));
+
+}
+
+h2.metrics-label {
+    font-weight: 700;
+    padding: var(--line-spacing) 0%;
+}
+
+h2.metrics-value {
+    /* padding: 0.55% 0%; */
+    padding: var(--line-spacing) 0%;
+}
+
+div.gray-divider {
+    width: 100%;
+    height: 1px;
+    background-color: #808080;
+    margin: 2% 0%;
+}
+
+/* div.battery-card-footer {
+    height: 100%;
+    width: 100%;
+} */
+
+
+
+
