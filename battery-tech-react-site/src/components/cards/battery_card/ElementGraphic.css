@@ -9,7 +9,7 @@
     /* width: 46px; These get passed in
     height: 46px; */
     border-radius: calc(0.135*100%);
-    border: calc(0.02 * var(--container-width)) solid black;
+    border: calc(0.01 * var(--container-width)) solid black;
     background-color: #E3E3E3;
 }
 

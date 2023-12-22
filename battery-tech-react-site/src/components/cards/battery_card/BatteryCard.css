@@ -50,17 +50,19 @@
     height: calc(0.10 * var(--battery-card-container-height));
 }
 
-.badge-icon-svg {
+.badge-icon {
     position: absolute;
     fill: #808080;
+    stroke: #808080;
+    stroke-width: 3;
     width: 100%;
     height: 100%;
 }
 
 h3.badge-ranking-number {
     position: absolute;
-    top: 20%;
-    font-size: calc(0.022 * var(--battery-card-container-height));
+    top: 26%;
+    font-size: calc(0.02 * var(--battery-card-container-height));
     font-weight: 700;
     color: #808080;
     margin: 0;
@@ -89,7 +91,7 @@ div.metrics-title {
 }
 
 div.metrics-title h3 {
-    font-size: calc(0.03 * var(--battery-card-container-height));
+    font-size: calc(round(0.027 * var(--battery-card-container-height)));
     font-weight: 700;
 }
 
@@ -129,15 +131,64 @@ h2.metrics-value {
 
 div.gray-divider {
     width: 100%;
-    height: 1px;
-    background-color: #808080;
-    margin: 2% 0%;
+    height: 0.5px;
+    background-color: #A2A2A2;
+    opacity: 0.53;
+    margin: 3% 0% 0% 0%;
 }
 
-/* div.battery-card-footer {
-    height: 100%;
+div.battery-card-footer {
+    height: calc(0.087 * var(--battery-card-container-height));
     width: 100%;
-} */
+    max-width: 100%;
+    display: grid;
+    grid-template-rows: 1;
+    grid-template-columns: 2.5fr 1fr;
+}
+
+div.element-footer-tags {
+    display: flex;
+    flex-direction: row;
+    min-width: 100%;
+    max-width: 100%;
+    /* justify-content: space-around; */
+    align-items: center;
+    /* border: 1px solid red; */
+    flex-wrap: wrap;
+    overflow: hidden;
+    padding: 2%;
+}
+
+div.element-footer-tag {
+    display: inline-flex;
+    margin: 1% 1%;
+    height: calc(0.03 * var(--battery-card-container-height));
+    background-color: #D9D9D9;
+    border-radius: calc(0.05 * var(--battery-card-container-height));
+    padding: calc(0.005 * var(--battery-card-container-height)) calc(0.005 * var(--battery-card-container-height));
+
+}
+
+div.footer-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    max-width: 100%;
+    /* border: 1px solid blue; */
+}
+
+div.icon-container {
+    margin: 0% 5%;
+}
+
+h3.element-footer-tag-text {
+    font-size: calc(0.015 * var(--battery-card-container-height));
+    line-height: calc(0.02 * var(--battery-card-container-height));
+}
+
+
 
 
 
