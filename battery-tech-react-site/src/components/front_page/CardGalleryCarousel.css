@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ion-category-card-stack {
+    display: flex;
+    height: 400vh;
+    max-width: 40vw;
+    min-width: 20vw;
+    background-color: darkgray;
+    /* margin: 0% 20px; */
+}
+
+/* .carousel-track {
+    padding: 0% 20px;
+} */

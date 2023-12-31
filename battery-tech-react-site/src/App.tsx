@@ -4,10 +4,13 @@ import './App.css';
 import React from 'react';
 // import MyComponent from './MyComponent'; // Adjust the path as necessary
 import LandingPageHeader from './components/front_page/LandingPageHeader';
+import CardGalleryCarousel from "./components/front_page/CardGalleryCarousel";
 import BatteryGraphic, { BatteryElectrochemicalComponents } from './components/cards/battery_card/BatteryGraphic';
-import ElementGraphic from './components/cards/battery_card/ElementGraphic';
+// import ElementGraphic from './components/cards/battery_card/ElementGraphic';
 import BatteryCard from './components/cards/battery_card/BatteryCard';
-import BatteryCallout from './components/cards/battery_card/BatteryCallout';
+// import BatteryCallout from './components/cards/battery_card/BatteryCallout';
+import './styles/tailwind.css'; // Import the Tailwind CSS file
+import './index.css';
 
 const App: React.FC = () => {
   const batteryElements: BatteryElectrochemicalComponents = {
@@ -49,6 +52,7 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <LandingPageHeader />
+      <CardGalleryCarousel />
       <BatteryCard 
         size={600}
         batteryElements={batteryElements}
@@ -57,11 +61,11 @@ const App: React.FC = () => {
         width={220}
         elements={batteryElements}
       />
-      <BatteryCallout
+      {/* <BatteryCallout
         height={900}
         elements="Al-Mg-Mn"
         electrochemicalCategory="Cathode"
-      />
+      /> */}
       {/* <div className="element-graphic-container-container" 
       style={{marginLeft: "1rem"}}>
         <ElementGraphic 
