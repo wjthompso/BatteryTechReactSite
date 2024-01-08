@@ -55,44 +55,110 @@ type CardGalleryCarouselState = {
 }
 
 class CardGalleryCarousel extends Component<{}, CardGalleryCarouselState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      count: 0,
-    };
+  carouselViewportWidth: number = 0;
+  cardStackWidth: number = 0;
+  carouselTrackWidth: number = 0;
+  carouselViewportInCardStackWidths: number = 0;
+  carouselTrackInCardStackWidths: number = 0;
+  leftShiftCounterInCardStackWidths: number = 0;
+  maxLeftShiftInCardStackWidths: number = 0;
+
+  // calculateWidths = () => {
+  //   this.carouselViewportWidth = document.getElementById("carousel-viewport")!.offsetWidth;
+  //   // Calculate the margin, padding, and width of an individual ion category card stack element using document.getElementsByClassName("ion-category-card-stack")[0].offsetWidth
+  //   const allCardStacks = document.getElementsByClassName("ion-category-card-stack");
+
+  //   if (allCardStacks.length >= 0) {
+  //     const cardStackWidth = allCardStacks[0].offsetWidth;
+  //   }
+
+  //   // Find the total number
+  //   this.carouselTrackWidth = this.cardStackWidth * 8;
+  //   this.carouselViewportInCardStackWidths = this.carouselViewportWidth / this.cardStackWidth;
+  //   this.carouselTrackInCardStackWidths = this.carouselTrackWidth / this.cardStackWidth;
+  //   this.maxLeftShiftInCardStackWidths = this.carouselTrackInCardStackWidths - this.carouselViewportInCardStackWidths;
+  // }
+
+  nextButtonContainerRef = React.createRef<HTMLDivElement>();
+  prevButtonContainerRef = React.createRef<HTMLDivElement>();
+  nextButtonRef = React.createRef<HTMLButtonElement>();
+  prevButtonRef = React.createRef<HTMLButtonElement>();
+
+  componentDidMount() {
+    window.addEventListener('mousemove', this.handleMouseMove);
   }
 
-  carouselTrackRef = React.createRef<HTMLDivElement>();
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleMouseMove);
+  }
 
-  handleWheel = (event: React.WheelEvent) => {
-    const delta = event.deltaX;
+  handleMouseMove = (event: MouseEvent) => {
+    const { clientX, clientY } = event;
+    this.checkHover(this.nextButtonContainerRef.current, clientX, clientY);
+    this.checkHover(this.prevButtonContainerRef.current, clientX, clientY);
+  };
 
-    if (this.carouselTrackRef.current) {
-      this.carouselTrackRef.current.scrollLeft += delta;
+  // This function checks if the mouse is hovering over the hover box for the
+  // next or previous button
+  checkHover = (element: HTMLDivElement | null, mouseX: number, mouseY: number) => {
+    if (element) {
+      const { top, right, bottom, left } = element.getBoundingClientRect();
+      const isHover = mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
+
+      // 
+
+      if (isHover) {
+        // Apply hover state
+        if (element.id === "nextButtonHoverBox") {
+          this.nextButtonRef.current!.classList.remove('opacity-0');
+        }
+        else {
+          this.prevButtonRef.current!.classList.remove('opacity-0');
+        }
+      } else {
+        // Remove hover state
+        if (element.id === "nextButtonHoverBox") {
+          this.nextButtonRef.current!.classList.add('opacity-0');
+        }
+        else {
+          this.prevButtonRef.current!.classList.add('opacity-0');
+        }
+      }
     }
-  }
+  };
 
   // You can access and update state using this.state
   render() {
     return (
       <div id="carousel-viewport" className="relative flex flex-col w-full h-5/6">
-        <div id="prevButtonHoverBox" className="absolute top-0 left-0 flex w-[45%] h-[80%] group pt-80 z-10" onWheel={this.handleWheel}>
-          <button id="prevButton" className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 opacity-0 group-hover:opacity-100 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 left-[3vw]">
+        {/* This prevButtonHoverBox is here to create a wider target for the mouse on a hover
+        However, since it receives the scroll left and right commands
+        */}
+        <div id="prevButtonHoverBox" className="absolute top-0 left-0 flex w-[45%] h-[80%] group pt-80" ref={this.prevButtonContainerRef}>
+          <button
+            id="prevButton"
+            className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 opacity-0 group-hover:opacity-100 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 left-[3vw] z-20"
+            ref={this.prevButtonRef}
+          >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z" fill="#000000" />
             </svg>
           </button>
         </div>
-        <div id="nextButtonHoverBox" className="absolute top-0 right-0 flex w-[45%] h-[100%] group z-10" onWheel={this.handleWheel}>
+        <div id="nextButtonHoverBox" className="absolute top-0 right-0 flex w-[45%] h-[100%] group" ref={this.nextButtonContainerRef}>
           <div id="nextBoxPositioner" className="absolute top-0 right-[3vw] w-auto h-[80%] pt-80">
-            <button id="nextButton" className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 opacity-0 group-hover:opacity-100 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96">
+            <button
+              id="nextButton"
+              className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 opacity-0 group-hover:opacity-100 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 z-20"
+              ref={this.nextButtonRef}
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 4.29289C8.68342 3.90237 9.31658 3.90237 9.70711 4.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L9.70711 19.7071C9.31658 20.0976 8.68342 20.0976 8.29289 19.7071C7.90237 19.3166 7.90237 18.6834 8.29289 18.2929L14.5858 12L8.29289 5.70711C7.90237 5.31658 7.90237 4.68342 8.29289 4.29289Z" fill="#000000" />
               </svg>
             </button>
           </div>
         </div>
-        <div id="carousel-sub-viewport" className="relative flex flex-col w-[100%] overflow-x-scroll h-[100%]" ref={this.carouselTrackRef}>
+        <div id="carousel-sub-viewport" className="relative flex flex-col w-[100%] overflow-x-scroll h-[100%] z-10">
           <div id="carousel-track" className="flex flex-row w-auto pt-10 max-sm:pt-5 flex-nowrap min-w-max">
             <div className="ion-category-card-stack flex h-[400vh] bg-darkgray rounded-xl min-w-[300px] sm:min-w-[322px] md:min-w-[340px] lg:min-w-[355px] xl:min-w-[386px] mx-5"></div>
             <div className="ion-category-card-stack flex h-[400vh] bg-darkgray rounded-xl min-w-[300px] sm:min-w-[322px] md:min-w-[340px] lg:min-w-[355px] xl:min-w-[386px] mx-5"></div>
