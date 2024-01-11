@@ -1,52 +1,5 @@
-import React, { useEffect, useRef, createRef, useState } from 'react';
+import React, { useEffect, useRef, createRef } from 'react';
 import "./CardGalleryCarousel.css";
-
-/*
-
-We'll have three main elements in this carousel:
-
-  1. The carousel viewport, which will be the full width of the viewport. We'll
-     probably want the overflow of this viewport to be set to scroll, so that
-     people can swipe with their fingers.
-  2. The carousel track, which will be large enough to acommodate all of the ion
-     category card stack, plus left and right padding both equal to the left
-     margin of the card stack.
-  3. The ion category stacks themselves, with equal-sized left and right
-     margins.
-
-To make the left and right buttons of our carousel appropriately responsive,
-we'll need to calculate the following variables:
-
-  1. carouselViewportWidth: The width of the carousel viewport.
-  2. cardStackWidth: The width of the ion category stacks plus their left and
-     right margins (which should be equivalent).
-  3. carouselTrackWidth: The width of the carousel track, which should be #2
-     times the number of ion category stacks plus left and right padding equal
-     to the ion category margins.
-  4. carouselViewportInCardStackWidths: The width of the carousel viewport as a
-     function of #2.
-  5. carouselTrackInCardStackWidths: The width of the carousel track as a
-     function of #2.
-  6. leftShiftCounterInCardStackWidths: The amount the track has been shifted
-     to the left, in terms of the number of stack widths it's been shifted.
-     (e.g., 4.3 stack widths shifted)
-  7. maxLeftShiftInCardStackWidths: The maximum amount to shift the track to the
-     left in terms of the number of stack widths it's been shifted.
-  8. minLeftShiftInCardStackWidths (optional): The minimum amount to shift the
-     track to the left in terms of number of stack widths it's been shifted.
-     This will be 0. It's not really necessary.
-
-leftShiftCounterInCardStackWidths is the variable whose state we need to keep
-track of in our component. It gets recalculated whenever we click previous or
-next.
-
-Variables #1-#7 will need to be calculated when the screen is loaded, and
-whenever the screen is resized.    
-
-#6 will need to be appropriately incremented by a nextButton and decremented by
-a prevButton function which will re-calculate #6.
-
-*/
 
 function getElementMargins(element: HTMLElement) {
   const computedStyles = window.getComputedStyle(element);
@@ -66,7 +19,7 @@ const CardGalleryCarousel: React.FC = () => {
   const nextButtonRef = useRef<HTMLButtonElement>(null);
   const prevButtonRef = useRef<HTMLButtonElement>(null);
   const carouselViewport = useRef<HTMLDivElement>(null);
-  const scrollableCarouselSubViewport = useRef<HTMLDivElement>(null);
+  const scrollableCarouselViewport = useRef<HTMLDivElement>(null);
   const carouselTrack = useRef<HTMLDivElement>(null);
   const carouselViewportWidth = useRef<number>(0);
   const cardStackWidth = useRef<number>(0);
@@ -75,9 +28,6 @@ const CardGalleryCarousel: React.FC = () => {
   const carouselTrackInCardStackWidths = useRef<number>(0);
   const maxLeftShiftInCardStackWidths = useRef<number>(0);
 
-  /*
-  This function calculates the widths of the carousel viewport in pixels.
-  */
   const calculateWidths = (): void => {
     carouselViewportWidth.current = carouselViewport.current!.offsetWidth;
 
@@ -95,83 +45,48 @@ const CardGalleryCarousel: React.FC = () => {
 
   useEffect(() => {
     // Equivalent to componentDidMount
-    const handleMouseMove = (event: MouseEvent) => {
-      const { clientX, clientY } = event;
-      checkHover(nextButtonContainerRef.current, clientX, clientY);
-      checkHover(prevButtonContainerRef.current, clientX, clientY);
-    };
 
     calculateWidths();
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', calculateWidths);
 
     // Equivalent to componentWillUnmount
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', calculateWidths);
     };
-  }, []);
+  });
 
   const handleNextButtonClick = () => {
-    leftShiftCounterInCardStackWidths.current = scrollableCarouselSubViewport.current!.scrollLeft / cardStackWidth.current;
+    leftShiftCounterInCardStackWidths.current = scrollableCarouselViewport.current!.scrollLeft / cardStackWidth.current;
 
     if (leftShiftCounterInCardStackWidths.current + 1 < maxLeftShiftInCardStackWidths.current) {
       leftShiftCounterInCardStackWidths.current += 1;
-      scrollableCarouselSubViewport.current!.scrollLeft = (leftShiftCounterInCardStackWidths.current * cardStackWidth.current);
+      scrollableCarouselViewport.current!.scrollLeft = (leftShiftCounterInCardStackWidths.current * cardStackWidth.current);
     } else {
       leftShiftCounterInCardStackWidths.current = maxLeftShiftInCardStackWidths.current;
-      scrollableCarouselSubViewport.current!.scrollLeft = maxLeftShiftInCardStackWidths.current * cardStackWidth.current;
+      scrollableCarouselViewport.current!.scrollLeft = maxLeftShiftInCardStackWidths.current * cardStackWidth.current;
     }
   };
 
   const handlePrevButtonClick = () => {
-    leftShiftCounterInCardStackWidths.current = scrollableCarouselSubViewport.current!.scrollLeft / cardStackWidth.current;
+    leftShiftCounterInCardStackWidths.current = scrollableCarouselViewport.current!.scrollLeft / cardStackWidth.current;
 
     if (leftShiftCounterInCardStackWidths.current - 1 > 0) {
       leftShiftCounterInCardStackWidths.current -= 1;
-      scrollableCarouselSubViewport.current!.scrollLeft = leftShiftCounterInCardStackWidths.current * cardStackWidth.current;
+      scrollableCarouselViewport.current!.scrollLeft = leftShiftCounterInCardStackWidths.current * cardStackWidth.current;
     } else {
       leftShiftCounterInCardStackWidths.current = 0;
-      scrollableCarouselSubViewport.current!.scrollLeft = 0;
+      scrollableCarouselViewport.current!.scrollLeft = 0;
     }
   };
 
-  // This function checks if the mouse is hovering over the hover box for the
-  // next or previous button
-  const checkHover = (element: HTMLDivElement | null, mouseX: number, mouseY: number) => {
-    if (element) {
-      const { top, right, bottom, left } = element.getBoundingClientRect();
-      const isHover = mouseX >= left && mouseX <= right && mouseY >= top && mouseY <= bottom;
-
-      if (isHover) {
-        // Apply hover state
-        if (element.id === "nextButtonHoverBox") {
-          nextButtonRef.current!.classList.remove('opacity-0');
-        } else {
-          prevButtonRef.current!.classList.remove('opacity-0');
-        }
-      } else {
-        // Remove hover state
-        if (element.id === "nextButtonHoverBox") {
-          nextButtonRef.current!.classList.add('opacity-0');
-        } else {
-          prevButtonRef.current!.classList.add('opacity-0');
-        }
-      }
-    }
-  };
-
-  // You can access and update state using this.state
   return (
-    <div id="carousel-viewport" className="relative flex flex-col w-full h-5/6" ref={carouselViewport}>
-      {/* This prevButtonHoverBox is here to create a wider target for the mouse on a hover
-        However, since it receives the scroll left and right commands
-        */}
+    <div id="carousel-container" className="relative flex flex-col w-full h-5/6" ref={carouselViewport}>
+      {/* This prevButtonHoverBox is here to create a wider target for the mouse on a hover*/}
       <div id="prevButtonHoverBox" className="absolute top-0 left-0 flex w-[45%] h-[80%] group pt-80" ref={prevButtonContainerRef}>
         <button
           id="prevButton"
           onClick={handlePrevButtonClick}
-          className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 opacity-0 group-hover:opacity-100 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 left-[3vw] z-20"
+          className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 left-[3vw] z-20"
           ref={prevButtonRef}
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -184,7 +99,7 @@ const CardGalleryCarousel: React.FC = () => {
           <button
             id="nextButton"
             onClick={handleNextButtonClick}
-            className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 opacity-0 group-hover:opacity-100 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 z-20"
+            className="sticky flex transition-opacity duration-300 ease-in-out justify-center p-3 pl-2.5 align-middle bg-gray-300 rounded-full w-[3rem] h-[3rem] top-96 z-20"
             ref={nextButtonRef}
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
@@ -193,7 +108,7 @@ const CardGalleryCarousel: React.FC = () => {
           </button>
         </div>
       </div>
-      <div id="carousel-sub-viewport" className="relative flex flex-col w-[100%] scroll-smooth overflow-x-scroll h-[100%] z-10" ref={scrollableCarouselSubViewport}>
+      <div id="carousel-scrollable-viewport" className="relative flex flex-col w-[100%] scroll-smooth overflow-x-scroll z-10" ref={scrollableCarouselViewport}>
         <div id="carousel-track" className="flex flex-row w-auto pt-10 max-sm:pt-5 flex-nowrap min-w-max" ref={carouselTrack}>
           {cardStackRefs.map((ref, index) => (
             <div key={index} ref={ref} className="ion-category-card-stack flex h-[400vh] bg-darkgray rounded-xl min-w-[300px] sm:min-w-[322px] md:min-w-[340px] lg:min-w-[355px] xl:min-w-[386px] mx-5"></div>
