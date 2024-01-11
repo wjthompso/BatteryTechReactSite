@@ -1,15 +1,26 @@
 import React, { useEffect, useRef, createRef } from 'react';
 import "./CardGalleryCarousel.css";
+import { getElementMargins } from '../../utils/utilities';
 
-function getElementMargins(element: HTMLElement) {
-  const computedStyles = window.getComputedStyle(element);
-  return {
-    marginLeft: parseInt(computedStyles.getPropertyValue("margin-left"), 10),
-    marginRight: parseInt(computedStyles.getPropertyValue("margin-right"), 10),
-    marginTop: parseInt(computedStyles.getPropertyValue("margin-top"), 10),
-    marginBottom: parseInt(computedStyles.getPropertyValue("margin-bottom"), 10),
-  };
-}
+// type ElementMargins = {
+//   marginLeft: number;
+//   marginRight: number;
+//   marginTop: number;
+//   marginBottom: number;
+// }
+
+// /**
+//  * Returns the margins of an element.
+// */
+// function getElementMargins(element: HTMLElement): ElementMargins {
+//   const computedStyles = window.getComputedStyle(element);
+//   return {
+//     marginLeft: parseFloat(computedStyles.getPropertyValue("margin-left")),
+//     marginRight: parseFloat(computedStyles.getPropertyValue("margin-right")),
+//     marginTop: parseFloat(computedStyles.getPropertyValue("margin-top")),
+//     marginBottom: parseFloat(computedStyles.getPropertyValue("margin-bottom")),
+//   };
+// }
 
 const CardGalleryCarousel: React.FC = () => {
   const leftShiftCounterInCardStackWidths = useRef<number>(0);
@@ -28,6 +39,21 @@ const CardGalleryCarousel: React.FC = () => {
   const carouselTrackInCardStackWidths = useRef<number>(0);
   const maxLeftShiftInCardStackWidths = useRef<number>(0);
 
+  /**
+   * Calculates and updates the widths of various elements in the carousel.
+   * 
+   * This function computes the width of the carousel viewport, each individual card stack,
+   * and the entire carousel track. It also calculates the number of card stack widths that
+   * fit within the carousel viewport and the total carousel track. These calculations are 
+   * used to determine the maximum possible left shift (in terms of card stack widths) that
+   * the carousel can undergo.
+   * 
+   * It is typically called on component mount (to initialize the widths) and on window resize
+   * events (to update the widths based on the new size of the carousel's container).
+   * 
+   * @returns void
+   * @listens window.resize
+   */
   const calculateWidths = (): void => {
     carouselViewportWidth.current = carouselViewport.current!.offsetWidth;
 
@@ -55,6 +81,17 @@ const CardGalleryCarousel: React.FC = () => {
     };
   });
 
+  /**
+   * Handles the click event on the next button.
+   * 
+   * This function is called when the user clicks on the next button. It calculates the
+   * current left shift of the carousel in terms of card stack widths. It then increments
+   * the left shift counter and scrolls the carousel to the new position, unless the new
+   * position would be past the maximum left shift.
+   * 
+   * @returns void
+   * @handles nextButton.onClick - Attached as an event handler to the `onClick` property of the `nextButton`.
+   */
   const handleNextButtonClick = () => {
     leftShiftCounterInCardStackWidths.current = scrollableCarouselViewport.current!.scrollLeft / cardStackWidth.current;
 
@@ -67,6 +104,17 @@ const CardGalleryCarousel: React.FC = () => {
     }
   };
 
+  /**
+   * Handles the click event on the previous button.
+   * 
+   * This function is called when the user clicks on the previous button. It calculates the
+   * current left shift of the carousel in terms of card stack widths. It then decrements
+   * the left shift counter and scrolls the carousel to the new position, unless the new
+   * position would be less than 0, the minimum left shift.
+   * 
+   * @returns void
+   * @handles prevButton.onClick - Attached as an event handler to the `onClick` property of the `prevButton`.
+   */
   const handlePrevButtonClick = () => {
     leftShiftCounterInCardStackWidths.current = scrollableCarouselViewport.current!.scrollLeft / cardStackWidth.current;
 
