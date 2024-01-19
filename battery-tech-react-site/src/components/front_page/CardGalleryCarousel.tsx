@@ -1,12 +1,32 @@
 import React, { useEffect, useRef, createRef } from "react";
 import "./CardGalleryCarousel.css";
 import { getElementMargins } from "../../utils/utilities";
+import IonCategoryCardStack from "./IonCategoryCardStack";
+
+type IonCategory = {
+  ref: React.RefObject<HTMLDivElement>;
+  name: string;
+};
 
 const CardGalleryCarousel: React.FC = () => {
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null); // Declare scrollTimeout here
   const leftShiftCounterInCardStackWidths = useRef<number>(0);
-  const cardStackRefs = Array.from({ length: 8 }, () =>
-    createRef<HTMLDivElement>()
-  );
+  const ionCategoryCardStacks: IonCategory[] = [
+    { ref: createRef<HTMLDivElement>(), name: "Lithium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Sodium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Aluminum Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Plutonium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Uranium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Thorium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Notrealium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Catium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Dogium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Fishium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Redfishium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Bluefishium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Helloworldium Ion" },
+    { ref: createRef<HTMLDivElement>(), name: "Codingium Ion" },
+  ];
   const nextButtonContainerRef = useRef<HTMLDivElement>(null);
   const prevButtonContainerRef = useRef<HTMLDivElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
@@ -39,11 +59,14 @@ const CardGalleryCarousel: React.FC = () => {
   const calculateWidths = (): void => {
     carouselViewportWidth.current = carouselViewport.current!.offsetWidth;
 
-    if (cardStackRefs[0].current && cardStackRefs[0].current!) {
+    if (
+      ionCategoryCardStacks[0].ref.current &&
+      ionCategoryCardStacks[0].ref.current!
+    ) {
       cardStackWidth.current =
-        cardStackRefs[0].current!.offsetWidth +
-        getElementMargins(cardStackRefs[0].current).marginLeft +
-        getElementMargins(cardStackRefs[0].current).marginRight;
+        ionCategoryCardStacks[0].ref.current!.offsetWidth +
+        getElementMargins(ionCategoryCardStacks[0].ref.current).marginLeft +
+        getElementMargins(ionCategoryCardStacks[0].ref.current).marginRight;
     }
 
     carouselTrackWidth.current = carouselTrack.current!.offsetWidth;
@@ -56,15 +79,57 @@ const CardGalleryCarousel: React.FC = () => {
       carouselViewportInCardStackWidths.current;
   };
 
+  /**
+   * Handles the scroll event on the carousel.
+   *
+   * This function adjusts the scroll position to scroll to the nearest card
+   * stack. This is done to prevent the carousel from landing in between card
+   * stacks when the user scrolls manually.
+   *
+   * @returns void
+   * @listens scrollableCarouselViewport.scroll
+   */
+  const handleScroll = (): void => {
+    if (scrollTimeout.current) {
+      clearTimeout(scrollTimeout.current);
+    }
+
+    scrollTimeout.current = setTimeout(() => {
+      // Get the current scroll position of the carousel and update the left shift counter
+      const scrollPosition = scrollableCarouselViewport.current!.scrollLeft;
+
+      // Adjust scroll position to scroll to the nearest card stack
+      // This is done to prevent the carousel from getting stuck between card stacks
+      const scrollPositionInCardStackWidths: number =
+        scrollPosition / cardStackWidth.current;
+
+      if (
+        scrollPositionInCardStackWidths < maxLeftShiftInCardStackWidths.current
+      ) {
+        leftShiftCounterInCardStackWidths.current = Math.round(
+          scrollPositionInCardStackWidths
+        );
+        scrollableCarouselViewport.current!.scrollLeft =
+          leftShiftCounterInCardStackWidths.current * cardStackWidth.current;
+      } else {
+        leftShiftCounterInCardStackWidths.current =
+          maxLeftShiftInCardStackWidths.current;
+      }
+    }, 200);
+  };
+
   useEffect(() => {
     // Equivalent to componentDidMount
 
     calculateWidths();
     window.addEventListener("resize", calculateWidths);
+    let carouselViewPort = scrollableCarouselViewport.current!;
+    carouselViewPort.addEventListener("scroll", handleScroll);
 
     // Equivalent to componentWillUnmount
     return () => {
       window.removeEventListener("resize", calculateWidths);
+      carouselViewPort.removeEventListener("scroll", handleScroll);
     };
   });
 
@@ -80,9 +145,6 @@ const CardGalleryCarousel: React.FC = () => {
    * @handles nextButton.onClick - Attached as an event handler to the `onClick` property of the `nextButton`.
    */
   const handleNextButtonClick = () => {
-    leftShiftCounterInCardStackWidths.current =
-      scrollableCarouselViewport.current!.scrollLeft / cardStackWidth.current;
-
     if (
       leftShiftCounterInCardStackWidths.current + 1 <
       maxLeftShiftInCardStackWidths.current
@@ -110,9 +172,6 @@ const CardGalleryCarousel: React.FC = () => {
    * @handles prevButton.onClick - Attached as an event handler to the `onClick` property of the `prevButton`.
    */
   const handlePrevButtonClick = () => {
-    leftShiftCounterInCardStackWidths.current =
-      scrollableCarouselViewport.current!.scrollLeft / cardStackWidth.current;
-
     if (leftShiftCounterInCardStackWidths.current - 1 > 0) {
       leftShiftCounterInCardStackWidths.current -= 1;
       scrollableCarouselViewport.current!.scrollLeft =
@@ -195,12 +254,13 @@ const CardGalleryCarousel: React.FC = () => {
           className="flex w-auto min-w-max flex-row flex-nowrap pt-10 max-sm:pt-5"
           ref={carouselTrack}
         >
-          {cardStackRefs.map((ref, index) => (
-            <div
+          {ionCategoryCardStacks.map((ionCategory, index) => (
+            <IonCategoryCardStack
               key={index}
-              ref={ref}
-              className="ion-category-card-stack bg-darkgray mx-5 flex h-[400vh] min-w-[300px] rounded-xl sm:min-w-[322px] md:min-w-[340px] lg:min-w-[355px] xl:min-w-[386px]"
-            ></div>
+              index={index}
+              ref={ionCategory.ref}
+              ionCategory={ionCategory.name}
+            />
           ))}
         </div>
       </div>
