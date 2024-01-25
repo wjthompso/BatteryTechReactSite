@@ -1,32 +1,28 @@
-import React, { useEffect, useRef, createRef } from "react";
+import React, { useContext, useEffect, useRef, createRef } from "react";
 import "./CardGalleryCarousel.css";
 import { getElementMargins } from "../../utils/utilities";
 import IonCategoryCardStack from "./IonCategoryCardStack";
+import { AppContext } from "../../context/AppStateProvider"; // Adjust the path as necessary
+// import { ionCategoriesData } from "../../context/IonCategoriesData";
 
 type IonCategory = {
   ref: React.RefObject<HTMLDivElement>;
-  name: string;
+  ionCategoryId: string;
 };
 
 const CardGalleryCarousel: React.FC = () => {
+  const { globalState } = useContext(AppContext);
+
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null); // Declare scrollTimeout here
   const leftShiftCounterInCardStackWidths = useRef<number>(0);
-  const ionCategoryCardStacks: IonCategory[] = [
-    { ref: createRef<HTMLDivElement>(), name: "Lithium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Sodium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Aluminum Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Plutonium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Uranium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Thorium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Notrealium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Catium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Dogium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Fishium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Redfishium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Bluefishium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Helloworldium Ion" },
-    { ref: createRef<HTMLDivElement>(), name: "Codingium Ion" },
-  ];
+
+  const ionCategoryCardStacks: IonCategory[] = Object.entries(
+    globalState.ionCategories!
+  ).map(([ionCategoryId, _]) => ({
+    ref: createRef<HTMLDivElement>(),
+    ionCategoryId: ionCategoryId,
+  }));
+
   const nextButtonContainerRef = useRef<HTMLDivElement>(null);
   const prevButtonContainerRef = useRef<HTMLDivElement>(null);
   const nextButtonRef = useRef<HTMLButtonElement>(null);
@@ -198,7 +194,7 @@ const CardGalleryCarousel: React.FC = () => {
         <button
           id="prevButton"
           onClick={handlePrevButtonClick}
-          className="sticky left-[3vw] top-96 z-20 flex h-[3rem] w-[3rem] justify-center rounded-full bg-gray-300 p-3 pl-2.5 align-middle transition-opacity duration-300 ease-in-out"
+          className="sticky left-[0.5vw] top-96 z-20 flex h-[3rem] w-[3rem] justify-center rounded-full border-[0.1rem] border-black bg-gray-200 p-3 pl-2.5 align-middle transition-opacity duration-300 ease-in-out"
           ref={prevButtonRef}
           data-testid="carousel-prev-button"
         >
@@ -219,12 +215,12 @@ const CardGalleryCarousel: React.FC = () => {
       >
         <div
           id="nextBoxPositioner"
-          className="absolute right-[3vw] top-0 h-[80%] w-auto pt-80"
+          className="absolute right-[0.5vw] top-0 h-[80%] w-auto pt-80"
         >
           <button
             id="nextButton"
             onClick={handleNextButtonClick}
-            className="sticky top-96 z-20 flex h-[3rem] w-[3rem] justify-center rounded-full bg-gray-300 p-3 pl-2.5 align-middle transition-opacity duration-300 ease-in-out"
+            className="sticky top-96 z-20 flex h-[3rem] w-[3rem] justify-center rounded-full border-[0.1rem] border-black bg-gray-200 p-3 pl-2.5 align-middle transition-opacity duration-300 ease-in-out"
             ref={nextButtonRef}
             data-testid="carousel-next-button"
           >
@@ -259,7 +255,7 @@ const CardGalleryCarousel: React.FC = () => {
               key={index}
               index={index}
               ref={ionCategory.ref}
-              ionCategory={ionCategory.name}
+              ionCategoryId={ionCategory.ionCategoryId}
             />
           ))}
         </div>

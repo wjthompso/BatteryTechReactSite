@@ -1,63 +1,88 @@
 // import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-import React from 'react';
+import React from "react";
 // import MyComponent from './MyComponent'; // Adjust the path as necessary
-import LandingPageHeader from './components/front_page/LandingPageHeader';
+import LandingPageHeader from "./components/front_page/LandingPageHeader";
 import CardGalleryCarousel from "./components/front_page/CardGalleryCarousel";
-import BatteryGraphic, { BatteryElectrochemicalComponents } from './components/cards/battery_card/BatteryGraphic';
+import BatteryGraphic, {
+  BatteryElectrochemicalComponents,
+} from "./components/cards/battery_card/BatteryGraphic";
 // import ElementGraphic from './components/cards/battery_card/ElementGraphic';
-import BatteryCard from './components/cards/battery_card/BatteryCard';
+import BatteryCard from "./components/cards/battery_card/BatteryCard";
 // import BatteryCallout from './components/cards/battery_card/BatteryCallout';
-import './styles/tailwind.css'; // Import the Tailwind CSS file
-import './index.css';
+import "./styles/tailwind.css"; // Import the Tailwind CSS file
+import "./index.css";
 
 const App: React.FC = () => {
   const batteryElements: BatteryElectrochemicalComponents = {
-    cathode: [{
-      atomicNumber: "13",
-      elementSymbol: "Al",
-      elementName: "Aluminum",
-      atomicWeight: "26.9815",
-    }],
-    electrolyte: [{
-      atomicNumber: "12",
-      elementSymbol: "Mg",
-      elementName: "Magnesium",
-      atomicWeight: "24.305",
-    },
-    {
-      atomicNumber: "12",
-      elementSymbol: "Mg",
-      elementName: "Magnesium",
-      atomicWeight: "24.305",
+    cathode: [
+      {
+        atomicNumber: "11",
+        elementSymbol: "Na",
+        elementName: "Sodium",
+        atomicWeight: "22.990",
       },
-    {
-      atomicNumber: "12",
-      elementSymbol: "Mg",
-      elementName: "Magnesium",
-      atomicWeight: "24.305",
+    ],
+    electrolyte: [
+      {
+        atomicNumber: "13",
+        elementSymbol: "Al",
+        elementName: "Aluminum",
+        atomicWeight: "26.9815",
+      },
+      {
+        atomicNumber: "12",
+        elementSymbol: "Mg",
+        elementName: "Magnesium",
+        atomicWeight: "24.305",
+      },
+      {
+        atomicNumber: "12",
+        elementSymbol: "Mg",
+        elementName: "Magnesium",
+        atomicWeight: "24.305",
+      },
+    ],
+    anode: [
+      {
+        atomicNumber: "25",
+        elementSymbol: "Mn",
+        elementName: "Manganese",
+        atomicWeight: "54.938",
+      },
+    ],
+    keyMetrics: {
+      energyDensityWkg: 201.5,
+      powerDensityWkg: 103.4,
+      cycleLife: 34,
+      energyEfficiency: 99.0,
+      chargeEfficiency: 103.4,
+      dischargeCapacity: 99.0,
+      selfDischargeRate: 0.2,
+      chargeDischargeEfficiency: 99.0,
+      safety: "Safe",
+      materialsUsed: "Manganese, Aluminum, Magnesium",
+      recyclability: "Medium",
+      specificEnergyWhkg: 34.5,
+      operationalTemperatureRange: "-20-60",
+      fastChargeCapability: "False",
     },
-  ],
-    anode: [{
-      atomicNumber: "25",
-      elementSymbol: "Mn",
-      elementName: "Manganese",
-      atomicWeight: "54.938",
-    }],
   };
-
-  console.log("batteryElements", batteryElements);
 
   return (
     <div className="App">
       <LandingPageHeader />
       <CardGalleryCarousel />
-      <BatteryCard 
+      <BatteryCard
         size={600}
-        batteryElements={batteryElements}
+        batteryChemistryName="Al-Mg-Mn"
+        batteryElectrochemicalComponents={batteryElements}
       />
-      <BatteryGraphic 
+      <BatteryGraphic
+        cathodeDisplayName="Na"
+        electrolyteDisplayName="Al-Mn-Mg"
+        anodeDisplayName="Mn"
         width={220}
         elements={batteryElements}
       />
@@ -91,8 +116,7 @@ const App: React.FC = () => {
         />
       </div> */}
     </div>
-
   );
-}
+};
 
 export default App;

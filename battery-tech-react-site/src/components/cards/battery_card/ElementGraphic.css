@@ -1,46 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.element-graphic-container:hover {
+  z-index: 50;
+}
+
 .element-graphic-container {
-    position: absolute;
-    display: flex;
-    /* left: calc(100% / 2 - var(--container-width));
+  position: absolute;
+  display: flex;
+  /* left: calc(100% / 2 - var(--container-width));
     top: calc(100% / 2 - var(--container-height)); */
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    /* width: 46px; These get passed in
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* width: 46px; These get passed in
     height: 46px; */
-    border-radius: calc(0.135*100%);
-    border: calc(0.01 * var(--container-width)) solid black;
-    background-color: #E3E3E3;
+  border-radius: calc(0.135 * 100%);
+  border: calc(0.01 * var(--container-width)) solid black;
+  background-color: #e3e3e3;
 }
 
 h3.atomic-number {
-    position: absolute;
-    left: 5%;
-    top: 8%;
-    font-size: calc(0.15* var(--container-width));
-    line-height: calc(0.15* var(--container-width));
-    font-weight: 700;
+  position: absolute;
+  left: 5%;
+  top: 8%;
+  font-size: calc(0.15 * var(--container-width));
+  line-height: calc(0.15 * var(--container-width));
+  font-weight: 700;
 }
 
 h1.element-symbol {
-    padding-top: calc(0.17 * var(--container-width));
-    padding-bottom: 0;
-    font-weight: 500;
-    font-size: calc(0.35 * var(--container-width));
-    line-height: calc(0.35 * var(--container-width));
+  padding-top: calc(0.17 * var(--container-width));
+  padding-bottom: 0;
+  font-weight: 500;
+  font-size: calc(0.35 * var(--container-width));
+  line-height: calc(0.37 * var(--container-width));
 }
 
 h3.element-name {
-    font-size: calc(0.15 * var(--container-width));
-    line-height: calc(0.15 * var(--container-width));
-    /* font-size: 7px;
+  font-size: calc(0.15 * var(--container-width));
+  line-height: calc(0.17 * var(--container-width));
+  /* font-size: 7px;
     line-height: 6px; */
 }
 
 h3.atomic-weight {
-    padding-top: calc(0.02 * var(--container-width));
-    font-size: calc(0.12 * var(--container-width));
-    /* font-size: 5px; */
+  padding-top: calc(0.02 * var(--container-width));
+  font-size: calc(0.12 * var(--container-width));
+  /* font-size: 5px; */
 }
-
-

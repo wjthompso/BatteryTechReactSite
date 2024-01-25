@@ -2,6 +2,7 @@
 import React from "react";
 import "./BatteryCard.css";
 import BatteryGraphic, {
+  KeyMetrics,
   BatteryElectrochemicalComponents,
 } from "./BatteryGraphic";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +12,26 @@ import BadgeSVG from "./BadgeSVG";
 
 type BatteryCardProps = {
   size: number;
-  batteryElements: BatteryElectrochemicalComponents;
+  batteryChemistryName: string;
+  batteryElectrochemicalComponents: BatteryElectrochemicalComponents;
+  ranking?: number;
+  rankingString?: string;
+  keyMetrics?: {
+    energyDensity: number;
+    powerDensity: number;
+    cycleLife: number;
+    energyEfficiency: number;
+    chargeEfficiency: number;
+    dischargeCapacity: number;
+    selfDischargeRate: number;
+    chargeDischargeEfficiency: number;
+    safety: string;
+    materialsUsed: string;
+    recyclability: string;
+    specificEnergy: number;
+    operationalTemperatureRange: string;
+    fastChargeCapability: boolean;
+  };
 };
 
 /**
@@ -27,7 +47,12 @@ type BatteryCardProps = {
  * @param batteryElements
  * @returns
  */
-const BatteryCard: React.FC<BatteryCardProps> = ({ size, batteryElements }) => {
+const BatteryCard: React.FC<BatteryCardProps> = ({
+  size,
+  batteryChemistryName,
+  batteryElectrochemicalComponents,
+  keyMetrics,
+}) => {
   const batteryCardContainerStyle = {
     "--battery-card-container-height": `${size}px`,
     width: `${0.5 * size}px`, // Use the `size` for width
@@ -36,21 +61,42 @@ const BatteryCard: React.FC<BatteryCardProps> = ({ size, batteryElements }) => {
 
   const batteryGraphicSize: number = size * 0.167;
 
+  // Build the anodeDisplayName, electrolyteDisplayName, and cathodeDisplayName
+  // from the batteryElectrochemicalComponents object
+  const anodeDisplayName = batteryElectrochemicalComponents.anode
+    .map((element) => element.elementSymbol)
+    .join("-");
+  const electrolyteDisplayName = batteryElectrochemicalComponents.electrolyte
+    .map((element) => element.elementSymbol)
+    .join("-");
+  const cathodeDisplayName = batteryElectrochemicalComponents.cathode
+    .map((element) => element.elementSymbol)
+    .join("-");
+
+  const metrics: KeyMetrics = batteryElectrochemicalComponents.keyMetrics!;
+
   return (
     <div className="battery-card" style={batteryCardContainerStyle}>
       <div className="battery-title-graphic-ranking-positioning-box">
-        <h1 className="battery-card-title">AL | Al-Mg | Al</h1>
+        <h1 className="battery-card-title">{batteryChemistryName}</h1>
         <div className="battery-graphic-positioning-box">
           <BatteryGraphic
             width={batteryGraphicSize}
-            elements={batteryElements}
+            anodeDisplayName={anodeDisplayName}
+            electrolyteDisplayName={electrolyteDisplayName}
+            cathodeDisplayName={cathodeDisplayName}
+            elements={batteryElectrochemicalComponents}
             // style={{transform: "translateX(-85%)"}}
           />
         </div>
-        <div className="badge-container">
-          <BadgeSVG className="badge-icon" />
-          <h3 className="badge-ranking-number">3rd</h3>
-        </div>
+        {batteryElectrochemicalComponents.rankingString && (
+          <div className="badge-container">
+            <BadgeSVG className="badge-icon" />
+            <h3 className="badge-ranking-number">
+              {batteryElectrochemicalComponents.rankingString}
+            </h3>
+          </div>
+        )}
       </div>
 
       <div className="metrics-grid">
@@ -74,20 +120,22 @@ const BatteryCard: React.FC<BatteryCardProps> = ({ size, batteryElements }) => {
           <h2 className="metrics-label">Fast Charge Capability</h2>
         </div>
         <div className="metrics-values-column">
-          <h2 className="metrics-value">201.5</h2>
-          <h2 className="metrics-value">103.4</h2>
-          <h2 className="metrics-value">99%</h2>
-          <h2 className="metrics-value">201.5</h2>
-          <h2 className="metrics-value">103.4</h2>
-          <h2 className="metrics-value">99%</h2>
-          <h2 className="metrics-value">201.5</h2>
-          <h2 className="metrics-value">103.4</h2>
-          <h2 className="metrics-value">Medium</h2>
-          <h2 className="metrics-value">Magnesium</h2>
-          <h2 className="metrics-value">Medium</h2>
-          <h2 className="metrics-value">34.5</h2>
-          <h2 className="metrics-value">70-92</h2>
-          <h2 className="metrics-value">False</h2>
+          <h2 className="metrics-value">{metrics.energyDensityWkg}</h2>
+          <h2 className="metrics-value">{metrics.powerDensityWkg}</h2>
+          <h2 className="metrics-value">{metrics.cycleLife}</h2>
+          <h2 className="metrics-value">{metrics.energyEfficiency}</h2>
+          <h2 className="metrics-value">{metrics.chargeEfficiency}</h2>
+          <h2 className="metrics-value">{metrics.dischargeCapacity}</h2>
+          <h2 className="metrics-value">{metrics.selfDischargeRate}</h2>
+          <h2 className="metrics-value">{metrics.chargeDischargeEfficiency}</h2>
+          <h2 className="metrics-value">{metrics.safety}</h2>
+          <h2 className="metrics-value">{metrics.materialsUsed}</h2>
+          <h2 className="metrics-value">{metrics.recyclability}</h2>
+          <h2 className="metrics-value">{metrics.specificEnergyWhkg}</h2>
+          <h2 className="metrics-value">
+            {metrics.operationalTemperatureRange}
+          </h2>
+          <h2 className="metrics-value">{metrics.fastChargeCapability}</h2>
         </div>
       </div>
 

@@ -3,15 +3,5 @@
 @tailwind utilities;
 
 .ion-category-card-stack {
-  display: flex;
   background-color: darkgray;
-  /* margin: 0% 20px; */
 }
-
-.hover {
-  opacity: 1;
-}
-
-/* .carousel-track {
-    padding: 0% 20px;
-} */
