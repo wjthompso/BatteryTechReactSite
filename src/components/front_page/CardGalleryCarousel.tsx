@@ -194,11 +194,16 @@ const CardGalleryCarousel: React.FC = () => {
         <button
           id="prevButton"
           onClick={handlePrevButtonClick}
-          className="sticky left-[0.5vw] top-96 z-20 flex h-[3rem] w-[3rem] justify-center rounded-full border-[0.1rem] border-black bg-gray-200 p-3 pl-2.5 align-middle transition-opacity duration-300 ease-in-out"
+          className="sticky left-[0.5vw] top-96 z-20 flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full border-[0.1px] border-super-light-gray-1 p-3 pl-2.5 backdrop-blur-[1px] transition-opacity duration-300 ease-in-out sm:h-[3rem] sm:w-[3rem] sm:border-[0.1rem] sm:border-black sm:bg-gray-200"
           ref={prevButtonRef}
           data-testid="carousel-prev-button"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="h-[1rem] w-[1rem] sm:h-[1.5rem] sm:w-[1.5rem]"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -220,7 +225,7 @@ const CardGalleryCarousel: React.FC = () => {
           <button
             id="nextButton"
             onClick={handleNextButtonClick}
-            className="sticky top-96 z-20 flex h-[3rem] w-[3rem] justify-center rounded-full border-[0.1rem] border-black bg-gray-200 p-3 pl-2.5 align-middle transition-opacity duration-300 ease-in-out"
+            className="sticky top-96 z-20 flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full border-[0.1px] border-super-light-gray-1 p-3 pl-2.5 backdrop-blur-[1px] transition-opacity duration-300 ease-in-out sm:h-[3rem] sm:w-[3rem] sm:border-[0.1rem] sm:border-black sm:bg-gray-200"
             ref={nextButtonRef}
             data-testid="carousel-next-button"
           >
@@ -228,6 +233,7 @@ const CardGalleryCarousel: React.FC = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
+              className="h-[1rem] w-[1rem] translate-x-0.5 sm:h-[1.5rem] sm:w-[1.5rem]"
             >
               <path
                 fillRule="evenodd"
