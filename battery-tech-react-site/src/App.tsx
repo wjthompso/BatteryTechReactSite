@@ -1,121 +1,20 @@
-// import logo from './logo.svg';
 import "./App.css";
 
 import React from "react";
-// import MyComponent from './MyComponent'; // Adjust the path as necessary
+import AppStateProvider from "./context/AppStateProvider";
 import LandingPageHeader from "./components/front_page/LandingPageHeader";
 import CardGalleryCarousel from "./components/front_page/CardGalleryCarousel";
-import BatteryGraphic, {
-  BatteryElectrochemicalComponents,
-} from "./components/cards/battery_card/BatteryGraphic";
-// import ElementGraphic from './components/cards/battery_card/ElementGraphic';
-import BatteryCard from "./components/cards/battery_card/BatteryCard";
-// import BatteryCallout from './components/cards/battery_card/BatteryCallout';
 import "./styles/tailwind.css"; // Import the Tailwind CSS file
 import "./index.css";
 
 const App: React.FC = () => {
-  const batteryElements: BatteryElectrochemicalComponents = {
-    cathode: [
-      {
-        atomicNumber: "11",
-        elementSymbol: "Na",
-        elementName: "Sodium",
-        atomicWeight: "22.990",
-      },
-    ],
-    electrolyte: [
-      {
-        atomicNumber: "13",
-        elementSymbol: "Al",
-        elementName: "Aluminum",
-        atomicWeight: "26.9815",
-      },
-      {
-        atomicNumber: "12",
-        elementSymbol: "Mg",
-        elementName: "Magnesium",
-        atomicWeight: "24.305",
-      },
-      {
-        atomicNumber: "12",
-        elementSymbol: "Mg",
-        elementName: "Magnesium",
-        atomicWeight: "24.305",
-      },
-    ],
-    anode: [
-      {
-        atomicNumber: "25",
-        elementSymbol: "Mn",
-        elementName: "Manganese",
-        atomicWeight: "54.938",
-      },
-    ],
-    keyMetrics: {
-      energyDensityWkg: 201.5,
-      powerDensityWkg: 103.4,
-      cycleLife: 34,
-      energyEfficiency: 99.0,
-      chargeEfficiency: 103.4,
-      dischargeCapacity: 99.0,
-      selfDischargeRate: 0.2,
-      chargeDischargeEfficiency: 99.0,
-      safety: "Safe",
-      materialsUsed: "Manganese, Aluminum, Magnesium",
-      recyclability: "Medium",
-      specificEnergyWhkg: 34.5,
-      operationalTemperatureRange: "-20-60",
-      fastChargeCapability: "False",
-    },
-  };
-
   return (
-    <div className="App">
-      <LandingPageHeader />
-      <CardGalleryCarousel />
-      <BatteryCard
-        size={600}
-        batteryChemistryName="Al-Mg-Mn"
-        batteryElectrochemicalComponents={batteryElements}
-      />
-      <BatteryGraphic
-        cathodeDisplayName="Na"
-        electrolyteDisplayName="Al-Mn-Mg"
-        anodeDisplayName="Mn"
-        width={220}
-        elements={batteryElements}
-      />
-      {/* <BatteryCallout
-        height={900}
-        elements="Al-Mg-Mn"
-        electrochemicalCategory="Cathode"
-      /> */}
-      {/* <div className="element-graphic-container-container" 
-      style={{marginLeft: "1rem"}}>
-        <ElementGraphic 
-          size={46}
-          atomicNumber="13" 
-          elementSymbol="Al" 
-          elementName="Aluminum" 
-          atomicWeight="26.981" 
-        />
-        <ElementGraphic 
-          size={100}
-          atomicNumber="13" 
-          elementSymbol="Al" 
-          elementName="Aluminum" 
-          atomicWeight="26.981" 
-        />
-        <ElementGraphic 
-          size={200}
-          atomicNumber="26" 
-          elementSymbol="Mn" 
-          elementName="Manganese" 
-          atomicWeight="26.981" 
-        />
-      </div> */}
-    </div>
+    <AppStateProvider>
+      <div className="App">
+        <LandingPageHeader />
+        <CardGalleryCarousel />
+      </div>
+    </AppStateProvider>
   );
 };
 

@@ -64,7 +64,8 @@ const ElementGraphic: React.FC<ElementGraphicProps> = (props) => {
     ...props.style,
   };
 
-  let elementGraphicContainerClassName: string = "element-graphic-container";
+  let elementGraphicContainerClassName: string =
+    "element-graphic-container hover:z-[50]";
 
   if (props.classNames) {
     const additionalClassNames: string = props.classNames.join(" ");

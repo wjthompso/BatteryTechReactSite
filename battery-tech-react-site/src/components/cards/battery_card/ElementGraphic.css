@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.element-graphic-container:hover {
-  z-index: 50;
-}
-
 .element-graphic-container {
   position: absolute;
   display: flex;
@@ -33,20 +29,22 @@ h3.atomic-number {
 h1.element-symbol {
   padding-top: calc(0.17 * var(--container-width));
   padding-bottom: 0;
-  font-weight: 500;
-  font-size: calc(0.35 * var(--container-width));
-  line-height: calc(0.37 * var(--container-width));
+  font-weight: 600;
+  font-size: calc(0.32 * var(--container-width));
+  line-height: calc(0.34 * var(--container-width));
 }
 
 h3.element-name {
+  margin-top: calc(0.02 * var(--container-width));
   font-size: calc(0.15 * var(--container-width));
-  line-height: calc(0.17 * var(--container-width));
+  line-height: calc(0.15 * var(--container-width));
+  font-weight: 600;
   /* font-size: 7px;
     line-height: 6px; */
 }
 
 h3.atomic-weight {
-  padding-top: calc(0.02 * var(--container-width));
+  /* padding-top: calc(0.02 * var(--container-width)); */
   font-size: calc(0.12 * var(--container-width));
   /* font-size: 5px; */
 }

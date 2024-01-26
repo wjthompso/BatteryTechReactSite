@@ -1,23 +1,24 @@
-import React from 'react';
+import React from "react";
 
 type BatterySVGProps = {
-    className?: string;
-}
+  className?: string;
+};
 
-const BatterySVG: React.FC<BatterySVGProps> = ({ className }) => { 
-    return (
-        <svg version="1.1"
-            id="Layer_1"
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="100%"
-            viewBox="0 0 352 416"
-            enable-background="new 0 0 352 416"
-            className={className}
-        >
-            <path 
-                d="
+const BatterySVG: React.FC<BatterySVGProps> = ({ className }) => {
+  return (
+    <svg
+      version="1.1"
+      id="Layer_1"
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width="100%"
+      viewBox="0 0 352 416"
+      enableBackground="new 0 0 352 416"
+      className={className}
+    >
+      <path
+        d="
             M267.272583,254.740540 
                 C266.215088,257.992706 266.771576,260.667603 267.780579,263.413269 
                 C278.231720,291.851990 288.650330,320.302704 299.006378,348.776154 
@@ -164,9 +165,10 @@ const BatterySVG: React.FC<BatterySVGProps> = ({ className }) => {
                 C212.637115,288.172241 212.713303,288.037720 204.869370,284.397736 
                 C200.187531,282.225159 195.774399,279.282562 189.214600,277.589905 
                 C198.530991,303.068542 207.365173,327.228394 216.436691,352.130463 
-            z"/>
-        </svg>
-    );
-}
+            z"
+      />
+    </svg>
+  );
+};
 
 export default BatterySVG;

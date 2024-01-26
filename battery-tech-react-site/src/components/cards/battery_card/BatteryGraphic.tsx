@@ -68,7 +68,7 @@ type TransformStyle = {
   transform: string;
 };
 
-type ZindexClassName = string[];
+type ZindexClassNames = string[];
 
 /**
  * BatteryGraphic.tsx
@@ -139,7 +139,7 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({
   cathodeDisplayName,
   style,
 }) => {
-  const calculatedChemicalElementSize = width * 0.44;
+  const calculatedChemicalElementSize = width * 0.45;
 
   const enrichElementsWithSizeParameter = (
     elements: ElementData[]
@@ -231,7 +231,7 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({
   const getZindexClassName = (
     index: number,
     total: number
-  ): ZindexClassName => {
+  ): ZindexClassNames => {
     const transformStyles = getTransformStylesForSpread(index, total);
     const z = transformStyles.zIndex;
     return [`z-[${z * 10}]`];
@@ -250,7 +250,7 @@ const BatteryGraphic: React.FC<BatteryGraphicProps> = ({
               {...element}
               classNames={getZindexClassName(
                 index,
-                enrichedElements.electrolyte.length
+                enrichedElements.cathode.length
               )}
               style={getTransformStyleForSpread(
                 index,

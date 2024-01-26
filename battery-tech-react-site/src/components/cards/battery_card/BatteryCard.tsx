@@ -75,8 +75,26 @@ const BatteryCard: React.FC<BatteryCardProps> = ({
 
   const metrics: KeyMetrics = batteryElectrochemicalComponents.keyMetrics!;
 
+  let badgeIconClassNames: string = "badge-icon";
+  let badgeRankingNumberClassNames: string =
+    "badge-ranking-number text-[#808080]";
+
+  if (batteryElectrochemicalComponents.rankingString === "1st") {
+    badgeIconClassNames += " fill-[gold] stroke-[gold]";
+    badgeRankingNumberClassNames = "badge-ranking-number text-[gold]";
+  } else if (batteryElectrochemicalComponents.rankingString === "2nd") {
+    badgeIconClassNames += " fill-[silver] stroke-[silver]";
+    badgeRankingNumberClassNames = "badge-ranking-number text-[silver]";
+  } else if (batteryElectrochemicalComponents.rankingString === "3rd") {
+    badgeIconClassNames += " fill-[#cd7f32] stroke-[#cd7f32]";
+    badgeRankingNumberClassNames = "badge-ranking-number text-[#cd7f32]";
+  }
+
   return (
-    <div className="battery-card" style={batteryCardContainerStyle}>
+    <div
+      className="battery-card m-[5px] sm:m-[10px]"
+      style={batteryCardContainerStyle}
+    >
       <div className="battery-title-graphic-ranking-positioning-box">
         <h1 className="battery-card-title">{batteryChemistryName}</h1>
         <div className="battery-graphic-positioning-box">
@@ -91,8 +109,8 @@ const BatteryCard: React.FC<BatteryCardProps> = ({
         </div>
         {batteryElectrochemicalComponents.rankingString && (
           <div className="badge-container">
-            <BadgeSVG className="badge-icon" />
-            <h3 className="badge-ranking-number">
+            <BadgeSVG className={badgeIconClassNames} />
+            <h3 className={badgeRankingNumberClassNames}>
               {batteryElectrochemicalComponents.rankingString}
             </h3>
           </div>
