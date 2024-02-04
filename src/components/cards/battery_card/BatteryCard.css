@@ -74,11 +74,8 @@ h3.badge-ranking-number {
 
 div.metrics-grid {
   flex: 0;
-  /* position: absolute; */
   justify-self: center;
   display: grid;
-  /* top: 45%;
-    left: 5%; */
   width: 90%;
   height: calc(0.48 * var(--battery-card-container-height));
   grid-template-rows: 1fr 9fr;
@@ -116,6 +113,7 @@ h2.metrics-value {
   --line-spacing: calc(0.0025 * var(--battery-card-container-height));
   font-size: calc(0.02 * var(--battery-card-container-height));
   overflow: hidden;
+  white-space: pre;
   text-wrap: nowrap;
   text-overflow: ellipsis;
   line-height: calc(0.025 * var(--battery-card-container-height));
